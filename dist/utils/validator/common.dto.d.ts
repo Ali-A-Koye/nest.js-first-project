@@ -15,3 +15,6 @@ export declare class DataListDto {
     offset: number;
     q: string;
 }
+export declare class ReadSingleDTO {
+    id: number;
+}

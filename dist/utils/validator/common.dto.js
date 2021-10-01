@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DataListDto = exports.DataGridDto = void 0;
+exports.ReadSingleDTO = exports.DataListDto = exports.DataGridDto = void 0;
 const common_1 = require("@nestjs/common");
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
@@ -92,4 +92,14 @@ __decorate([
     __metadata("design:type", String)
 ], DataListDto.prototype, "q", void 0);
 exports.DataListDto = DataListDto;
+class ReadSingleDTO {
+}
+__decorate([
+    (0, class_transformer_1.Transform)(({ value }) => {
+        if (!(0, class_validator_1.isInt)(+value) || +value < 0)
+            throw new common_1.BadRequestException("id must be Postive Integer");
+    }),
+    __metadata("design:type", Number)
+], ReadSingleDTO.prototype, "id", void 0);
+exports.ReadSingleDTO = ReadSingleDTO;
 //# sourceMappingURL=common.dto.js.map

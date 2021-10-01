@@ -1,15 +1,24 @@
 import {
   Controller,
   Get,
+  Param,
+  Body,
+  Post,
   Query,
   UsePipes,
   ValidationPipe,
+  Put,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
-import { DataGridDto, DataListDto } from 'src/utils/validator/common.dto';
+import {
+  DataGridDto,
+  DataListDto,
+  ReadSingleDTO,
+} from 'src/utils/validator/common.dto';
+import { PostorPutDTO } from './dto/product.dto';
 @Controller('product')
 export class ProductController {
-  constructor(private readonly productService: ProductService) {}
+  constructor(private readonly productService: ProductService) { }
 
   @Get('/grid')
   @UsePipes(new ValidationPipe({ transform: true }))
@@ -47,6 +56,27 @@ export class ProductController {
     if (query.q) {
       readData.andWhere('product.name', 'like', `%${query.q}%`);
     }
+    return Promise.resolve(readData);
+  }
+
+  @Get('/:id')
+  readSingle(@Param() param: ReadSingleDTO): Promise<Array<object>> {
+    const readData = this.productService.readSingleQuery(param.id);
+    return Promise.resolve(readData);
+  }
+
+  @Post()
+  create(@Body() body: PostorPutDTO): Promise<number> {
+    const readData = this.productService.create(body);
+    return Promise.resolve(readData);
+  }
+
+  @Put('/:id')
+  update(
+    @Param() param: ReadSingleDTO,
+    @Body() body: PostorPutDTO,
+  ): Promise<number> {
+    const readData = this.productService.update(param.id, body);
     return Promise.resolve(readData);
   }
 }

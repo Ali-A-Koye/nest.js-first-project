@@ -12,4 +12,7 @@ export declare class ProductService {
         value: string;
     }>): Array<Knex.QueryBuilder>;
     readListQuery(limit: number, offset: number): Knex.QueryBuilder;
+    readSingleQuery(id: number): Knex.QueryBuilder;
+    create(body: any): Knex.QueryBuilder;
+    update(id: any, body: any): Knex.QueryBuilder;
 }

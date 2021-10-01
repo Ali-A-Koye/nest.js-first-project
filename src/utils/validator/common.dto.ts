@@ -3,7 +3,7 @@ import {
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { Transform } from 'class-transformer';
-import { isInt, IsOptional } from 'class-validator';
+import { isInt, isNumber, IsOptional, ValidateIf, Validator } from 'class-validator';
 
 export class DataGridDto {
   @Transform(({ value }) => {
@@ -57,3 +57,15 @@ export class DataListDto {
   @IsOptional()
   q: string;
 }
+
+
+export class ReadSingleDTO {
+
+
+  @Transform(({ value }) => {
+    if (!isInt(+value) || +value < 0) throw new BadRequestException("id must be Postive Integer");
+  })
+  id: number;
+
+}
+

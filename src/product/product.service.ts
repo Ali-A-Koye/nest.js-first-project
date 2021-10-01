@@ -47,4 +47,42 @@ export class ProductService {
       .limit(limit)
       .offset(offset);
   }
+
+  readSingleQuery(id: number): Knex.QueryBuilder {
+    const db = this.knex;
+
+    return db('product')
+      .select('product.*', 'user.name as created_by_who')
+      .leftJoin('user', 'user.id', 'product.created_by')
+      .where('product.deleted', 0)
+      .andWhere('product.id', id);
+  }
+
+  create(body): Knex.QueryBuilder {
+    const db = this.knex;
+
+    return db('product').insert({
+      name: body.name,
+      price: body.price,
+      is_sold: body.is_sold,
+      active: body.active,
+      created_at: db.fn.now(),
+      created_by: 1,
+    });
+  }
+
+  update(id, body): Knex.QueryBuilder {
+    const db = this.knex;
+
+    return db('product')
+      .update({
+        name: body.name,
+        price: body.price,
+        is_sold: body.is_sold,
+        active: body.active,
+        created_at: db.fn.now(),
+        created_by: 1,
+      })
+      .where('id', id);
+  }
 }

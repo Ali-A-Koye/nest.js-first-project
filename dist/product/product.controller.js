@@ -16,6 +16,7 @@ exports.ProductController = void 0;
 const common_1 = require("@nestjs/common");
 const product_service_1 = require("./product.service");
 const common_dto_1 = require("../utils/validator/common.dto");
+const product_dto_1 = require("./dto/product.dto");
 let ProductController = class ProductController {
     constructor(productService) {
         this.productService = productService;
@@ -39,6 +40,18 @@ let ProductController = class ProductController {
         }
         return Promise.resolve(readData);
     }
+    readSingle(param) {
+        const readData = this.productService.readSingleQuery(param.id);
+        return Promise.resolve(readData);
+    }
+    create(body) {
+        const readData = this.productService.create(body);
+        return Promise.resolve(readData);
+    }
+    update(param, body) {
+        const readData = this.productService.update(param.id, body);
+        return Promise.resolve(readData);
+    }
 };
 __decorate([
     (0, common_1.Get)('/grid'),
@@ -56,6 +69,29 @@ __decorate([
     __metadata("design:paramtypes", [common_dto_1.DataListDto]),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "readlist", null);
+__decorate([
+    (0, common_1.Get)('/:id'),
+    __param(0, (0, common_1.Param)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [common_dto_1.ReadSingleDTO]),
+    __metadata("design:returntype", Promise)
+], ProductController.prototype, "readSingle", null);
+__decorate([
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [product_dto_1.PostorPutDTO]),
+    __metadata("design:returntype", Promise)
+], ProductController.prototype, "create", null);
+__decorate([
+    (0, common_1.Put)('/:id'),
+    __param(0, (0, common_1.Param)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [common_dto_1.ReadSingleDTO,
+        product_dto_1.PostorPutDTO]),
+    __metadata("design:returntype", Promise)
+], ProductController.prototype, "update", null);
 ProductController = __decorate([
     (0, common_1.Controller)('product'),
     __metadata("design:paramtypes", [product_service_1.ProductService])
