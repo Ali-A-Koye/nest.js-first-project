@@ -39,6 +39,7 @@ let ProductService = class ProductService {
         const recordsCount = db('product')
             .count({ count: 'product.id' })
             .where('product.deleted', 0);
+        filter(filters, recordsCount);
         return [records, recordsCount];
     }
 };
