@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { KnexModule } from 'nest-knexjs';
+import { ProductModule } from './product/product.module';
 require("dotenv").config();
 
 console.log(process.env.HOST);
@@ -20,6 +21,7 @@ console.log(process.env.HOST);
         },
       },
     }),
+    ProductModule,
    ],
   controllers: [AppController],
   providers: [AppService],
