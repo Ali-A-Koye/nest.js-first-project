@@ -10,3 +10,8 @@ export declare class DataGridDto {
         value: string;
     }>;
 }
+export declare class DataListDto {
+    limit: number;
+    offset: number;
+    q: string;
+}

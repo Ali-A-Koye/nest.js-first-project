@@ -42,6 +42,15 @@ let ProductService = class ProductService {
         filter(filters, recordsCount);
         return [records, recordsCount];
     }
+    readListQuery(limit, offset) {
+        const db = this.knex;
+        return db('product')
+            .select('product.*', 'user.name as created_by_who')
+            .leftJoin('user', 'user.id', 'product.created_by')
+            .where('product.deleted', 0)
+            .limit(limit)
+            .offset(offset);
+    }
 };
 ProductService = __decorate([
     (0, common_1.Injectable)(),

@@ -32,6 +32,13 @@ let ProductController = class ProductController {
             };
         });
     }
+    readlist(query) {
+        const readData = this.productService.readListQuery(query.limit, query.offset);
+        if (query.q) {
+            readData.andWhere('product.name', 'like', `%${query.q}%`);
+        }
+        return Promise.resolve(readData);
+    }
 };
 __decorate([
     (0, common_1.Get)('/grid'),
@@ -41,6 +48,14 @@ __decorate([
     __metadata("design:paramtypes", [common_dto_1.DataGridDto]),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "readDataGrid", null);
+__decorate([
+    (0, common_1.Get)('/list'),
+    (0, common_1.UsePipes)(new common_1.ValidationPipe({ transform: true })),
+    __param(0, (0, common_1.Query)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [common_dto_1.DataListDto]),
+    __metadata("design:returntype", Promise)
+], ProductController.prototype, "readlist", null);
 ProductController = __decorate([
     (0, common_1.Controller)('product'),
     __metadata("design:paramtypes", [product_service_1.ProductService])

@@ -11,4 +11,5 @@ export declare class ProductService {
         column: string;
         value: string;
     }>): Array<Knex.QueryBuilder>;
+    readListQuery(limit: number, offset: number): Knex.QueryBuilder;
 }

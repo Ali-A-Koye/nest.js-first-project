@@ -1,5 +1,5 @@
 import { ProductService } from './product.service';
-import { DataGridDto } from 'src/utils/validator/common.dto';
+import { DataGridDto, DataListDto } from 'src/utils/validator/common.dto';
 export declare class ProductController {
     private readonly productService;
     constructor(productService: ProductService);
@@ -8,4 +8,5 @@ export declare class ProductController {
         pages: number;
         records: number;
     }>;
+    readlist(query: DataListDto): Promise<Array<object>>;
 }

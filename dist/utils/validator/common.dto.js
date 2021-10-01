@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DataGridDto = void 0;
+exports.DataListDto = exports.DataGridDto = void 0;
 const common_1 = require("@nestjs/common");
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
@@ -43,7 +43,7 @@ __decorate([
         return value.map((val) => {
             val = val.split(':');
             if (!val[0] || !val[1])
-                throw new common_1.UnprocessableEntityException("Invalid Filter Format should be columnName:value");
+                throw new common_1.UnprocessableEntityException('Invalid Filter Format should be columnName:value');
             else
                 return { column: val[0], value: val[1] };
         });
@@ -64,4 +64,32 @@ __decorate([
     __metadata("design:type", Array)
 ], DataGridDto.prototype, "sortArray", void 0);
 exports.DataGridDto = DataGridDto;
+class DataListDto {
+    constructor() {
+        this.limit = 10;
+        this.offset = 0;
+    }
+}
+__decorate([
+    (0, class_transformer_1.Transform)(({ value }) => {
+        if (!(0, class_validator_1.isInt)(+value))
+            return 10;
+        else
+            return value > 0 ? +value : 10;
+    }),
+    __metadata("design:type", Number)
+], DataListDto.prototype, "limit", void 0);
+__decorate([
+    (0, class_transformer_1.Transform)(({ value }) => {
+        if (!(0, class_validator_1.isInt)(+value))
+            return 0;
+        return value > 0 ? +value : 0;
+    }),
+    __metadata("design:type", Number)
+], DataListDto.prototype, "offset", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], DataListDto.prototype, "q", void 0);
+exports.DataListDto = DataListDto;
 //# sourceMappingURL=common.dto.js.map

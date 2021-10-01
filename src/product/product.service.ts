@@ -36,4 +36,15 @@ export class ProductService {
 
     return [records, recordsCount];
   }
+
+  readListQuery(limit: number, offset: number): Knex.QueryBuilder {
+    const db = this.knex;
+
+    return db('product')
+      .select('product.*', 'user.name as created_by_who')
+      .leftJoin('user', 'user.id', 'product.created_by')
+      .where('product.deleted', 0)
+      .limit(limit)
+      .offset(offset);
+  }
 }
