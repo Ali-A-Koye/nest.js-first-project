@@ -6,7 +6,7 @@ const folders = {
 		directory: path.join(__dirname, './seeds/'),
 	},
 	migrations: {
-		tableName: 'anyname_migrations',
+		tableName: 'nest-demo-migrations',
 		directory: path.join(__dirname, './migrations/'),
 	},
 };

@@ -1,11 +1,13 @@
-exports.up = function (knex) {
-    return knex.schema
-      .createTable('product', function (table) {
-        table.increments('id');
-        table.string('name', 255).notNullable();
-      })
-  };
-  
-  exports.down = function (knex) {
-    return knex.schema.dropTable('product');
-  };
+const defualts = require('../extra/defualtColumns');
+
+exports.up = (knex) => knex.schema.createTable('product', (table) => {
+	table.increments('id').primary();
+	table.text('name', 350).notNullable();
+	table.text('price', 350).notNullable();
+  table.boolean('is_sold').notNullable().defaultTo(0);
+	table.datetime('sold_at', { precision: 6 });
+  table.integer('sold_by').notNullable().defaultTo(0);
+	defualts(table);
+});
+
+exports.down = (knex) => knex.schema.dropTable('user');
