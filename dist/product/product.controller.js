@@ -52,6 +52,10 @@ let ProductController = class ProductController {
         const readData = this.productService.update(param.id, body);
         return Promise.resolve(readData);
     }
+    patch(param, body) {
+        const readData = this.productService.patch(param.id, body);
+        return Promise.resolve(readData);
+    }
 };
 __decorate([
     (0, common_1.Get)('/grid'),
@@ -92,6 +96,15 @@ __decorate([
         product_dto_1.PostorPutDTO]),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "update", null);
+__decorate([
+    (0, common_1.Patch)('/:id'),
+    __param(0, (0, common_1.Param)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [common_dto_1.ReadSingleDTO,
+        product_dto_1.ProductPatchDTO]),
+    __metadata("design:returntype", Promise)
+], ProductController.prototype, "patch", null);
 ProductController = __decorate([
     (0, common_1.Controller)('product'),
     __metadata("design:paramtypes", [product_service_1.ProductService])

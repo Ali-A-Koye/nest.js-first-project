@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
 import { Knex } from 'knex';
 import { InjectConnection } from 'nest-knexjs';
 import { DataService } from 'src/utils/data/data.service';
@@ -83,6 +83,20 @@ export class ProductService {
         created_at: db.fn.now(),
         created_by: 1,
       })
+      .where('id', id);
+  }
+
+  patch(id, body): Knex.QueryBuilder {
+    const db = this.knex;
+    const updateOb:any = {};
+
+		if (body.deleted !== undefined) updateOb.deleted = body.deleted;
+    if (body.is_sold !== undefined) updateOb.is_sold = body.is_sold;
+		if (body.active !== undefined) updateOb.active = body.active;
+		if (Object.entries(body).length === 0) throw new UnprocessableEntityException();
+
+    return db('product')
+      .update(updateOb)
       .where('id', id);
   }
 }

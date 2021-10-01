@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PostorPutDTO = void 0;
+exports.ProductPatchDTO = exports.PostorPutDTO = void 0;
 const class_validator_1 = require("class-validator");
 class PostorPutDTO {
 }
@@ -30,4 +30,22 @@ __decorate([
     __metadata("design:type", Boolean)
 ], PostorPutDTO.prototype, "active", void 0);
 exports.PostorPutDTO = PostorPutDTO;
+class ProductPatchDTO {
+}
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], ProductPatchDTO.prototype, "is_sold", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], ProductPatchDTO.prototype, "active", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], ProductPatchDTO.prototype, "deleted", void 0);
+exports.ProductPatchDTO = ProductPatchDTO;
 //# sourceMappingURL=product.dto.js.map

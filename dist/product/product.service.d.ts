@@ -15,4 +15,5 @@ export declare class ProductService {
     readSingleQuery(id: number): Knex.QueryBuilder;
     create(body: any): Knex.QueryBuilder;
     update(id: any, body: any): Knex.QueryBuilder;
+    patch(id: any, body: any): Knex.QueryBuilder;
 }

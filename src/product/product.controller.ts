@@ -8,6 +8,7 @@ import {
   UsePipes,
   ValidationPipe,
   Put,
+  Patch,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import {
@@ -15,7 +16,7 @@ import {
   DataListDto,
   ReadSingleDTO,
 } from 'src/utils/validator/common.dto';
-import { PostorPutDTO } from './dto/product.dto';
+import { PostorPutDTO, ProductPatchDTO } from './dto/product.dto';
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) { }
@@ -77,6 +78,16 @@ export class ProductController {
     @Body() body: PostorPutDTO,
   ): Promise<number> {
     const readData = this.productService.update(param.id, body);
+    return Promise.resolve(readData);
+  }
+
+
+  @Patch('/:id')
+  patch(
+    @Param() param: ReadSingleDTO,
+    @Body() body: ProductPatchDTO,
+  ): Promise<number> {
+    const readData = this.productService.patch(param.id, body);
     return Promise.resolve(readData);
   }
 }

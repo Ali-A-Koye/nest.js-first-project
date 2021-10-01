@@ -83,6 +83,21 @@ let ProductService = class ProductService {
         })
             .where('id', id);
     }
+    patch(id, body) {
+        const db = this.knex;
+        const updateOb = {};
+        if (body.deleted !== undefined)
+            updateOb.deleted = body.deleted;
+        if (body.is_sold !== undefined)
+            updateOb.is_sold = body.is_sold;
+        if (body.active !== undefined)
+            updateOb.active = body.active;
+        if (Object.entries(body).length === 0)
+            throw new common_1.UnprocessableEntityException();
+        return db('product')
+            .update(updateOb)
+            .where('id', id);
+    }
 };
 ProductService = __decorate([
     (0, common_1.Injectable)(),
