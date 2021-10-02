@@ -9,6 +9,8 @@ import {
   ValidationPipe,
   Put,
   Patch,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import {
@@ -17,9 +19,12 @@ import {
   ReadSingleDTO,
 } from 'src/utils/validator/common.dto';
 import { PostorPutDTO, ProductPatchDTO } from './dto/product.dto';
+import { UserGuard } from 'src/guards/user.guard';
+
+@UseGuards(UserGuard)
 @Controller('product')
 export class ProductController {
-  constructor(private readonly productService: ProductService) { }
+  constructor(private readonly productService: ProductService) {}
 
   @Get('/grid')
   readDataGrid(@Query() query: DataGridDto): Promise<{
@@ -46,8 +51,9 @@ export class ProductController {
   }
 
   @Get('/list')
-  readlist(@Query() query: DataListDto): Promise<Array<object>> {
-   
+  @UseGuards(UserGuard)
+  readlist(@Query() query: DataListDto, @Req() req): Promise<Array<object>> {
+    console.log(req.user); // Current Loggedin User
     const readData = this.productService.readListQuery(
       query.limit,
       query.offset,
@@ -80,14 +86,11 @@ export class ProductController {
     return Promise.resolve(readData);
   }
 
-
   @Patch('/:id')
   patch(
     @Param() param: ReadSingleDTO,
     @Body() body: ProductPatchDTO,
   ): Promise<number> {
-
-    
     const readData = this.productService.patch(param.id, body);
     return Promise.resolve(readData);
   }

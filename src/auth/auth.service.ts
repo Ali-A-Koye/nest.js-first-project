@@ -39,7 +39,7 @@ export class AuthService {
 
       return {
         user: userWithPassword,
-        data: token,
+        token: token,
       };
     });
   }

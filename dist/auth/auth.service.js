@@ -46,7 +46,7 @@ let AuthService = class AuthService {
             });
             return {
                 user: userWithPassword,
-                data: token,
+                token: token,
             };
         });
     }

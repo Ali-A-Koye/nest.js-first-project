@@ -9,7 +9,7 @@ export declare class ProductController {
         pages: number;
         records: number;
     }>;
-    readlist(query: DataListDto): Promise<Array<object>>;
+    readlist(query: DataListDto, req: any): Promise<Array<object>>;
     readSingle(param: ReadSingleDTO): Promise<Array<object>>;
     create(body: PostorPutDTO): Promise<number>;
     update(param: ReadSingleDTO, body: PostorPutDTO): Promise<number>;

@@ -11,13 +11,20 @@ const common_1 = require("@nestjs/common");
 const product_controller_1 = require("./product.controller");
 const product_service_1 = require("./product.service");
 const data_module_1 = require("../utils/data/data.module");
+const jwtVerify_middlewares_1 = require("../middlewares/jwtVerify.middlewares");
+const user_module_1 = require("../user/user.module");
 let ProductModule = class ProductModule {
+    configure(consumer) {
+        consumer
+            .apply(jwtVerify_middlewares_1.JwtVerifyMiddleware)
+            .forRoutes('*');
+    }
 };
 ProductModule = __decorate([
     (0, common_1.Module)({
         controllers: [product_controller_1.ProductController],
         providers: [product_service_1.ProductService],
-        imports: [data_module_1.DataModule]
+        imports: [data_module_1.DataModule, user_module_1.UserModule]
     })
 ], ProductModule);
 exports.ProductModule = ProductModule;

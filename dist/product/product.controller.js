@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const product_service_1 = require("./product.service");
 const common_dto_1 = require("../utils/validator/common.dto");
 const product_dto_1 = require("./dto/product.dto");
+const user_guard_1 = require("../guards/user.guard");
 let ProductController = class ProductController {
     constructor(productService) {
         this.productService = productService;
@@ -33,7 +34,8 @@ let ProductController = class ProductController {
             };
         });
     }
-    readlist(query) {
+    readlist(query, req) {
+        console.log(req.user);
         const readData = this.productService.readListQuery(query.limit, query.offset);
         if (query.q) {
             readData.andWhere('product.name', 'like', `%${query.q}%`);
@@ -66,9 +68,11 @@ __decorate([
 ], ProductController.prototype, "readDataGrid", null);
 __decorate([
     (0, common_1.Get)('/list'),
+    (0, common_1.UseGuards)(user_guard_1.UserGuard),
     __param(0, (0, common_1.Query)()),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [common_dto_1.DataListDto]),
+    __metadata("design:paramtypes", [common_dto_1.DataListDto, Object]),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "readlist", null);
 __decorate([
@@ -104,6 +108,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "patch", null);
 ProductController = __decorate([
+    (0, common_1.UseGuards)(user_guard_1.UserGuard),
     (0, common_1.Controller)('product'),
     __metadata("design:paramtypes", [product_service_1.ProductService])
 ], ProductController);
