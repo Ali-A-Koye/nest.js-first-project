@@ -5,7 +5,6 @@ import {
     IsOptional,
     MaxLength,
   } from 'class-validator';
-  
   export class PostorPutDTO {
     @MinLength(3)
     name: string;
@@ -13,6 +12,9 @@ import {
 
     @MinLength(3)
     username: string;
+
+    @MinLength(3)
+    salt: string;
 
     @MinLength(6)
     @MaxLength(10)

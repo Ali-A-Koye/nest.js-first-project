@@ -13,7 +13,13 @@ export declare class UserService {
     }>): Array<Knex.QueryBuilder>;
     readListQuery(limit: number, offset: number): Knex.QueryBuilder;
     readSingleQuery(id: number): Knex.QueryBuilder;
-    create(body: any): Knex.QueryBuilder;
+    create(body: {
+        name: string;
+        username: string;
+        password: string;
+        active: boolean;
+        salt: string;
+    }): Knex.QueryBuilder;
     update(id: any, body: any): Knex.QueryBuilder;
     patch(id: any, body: any): Knex.QueryBuilder;
 }

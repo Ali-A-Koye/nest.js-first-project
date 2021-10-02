@@ -6,7 +6,7 @@ import { DataModule } from 'src/utils/data/data.module';
 @Module({
   controllers: [UserController],
   providers: [UserService],
-  imports:[DataModule]
-
+  imports:[DataModule],
+  exports:[UserService]
 })
 export class UserModule {}

@@ -55,7 +55,13 @@ export class UserService {
       .andWhere('user.id', id);
   }
 
-  create(body): Knex.QueryBuilder {
+  create(body:{
+    name: string,
+      username: string,
+      password:string,
+      active: boolean,
+      salt:string
+  }): Knex.QueryBuilder {
     const db = this.knex;
 
     return db('user').insert({
@@ -64,6 +70,7 @@ export class UserService {
       password: body.password,
       active: body.active,
       created_at: db.fn.now(),
+      salt:body.salt,
       created_by: 1,
     });
   }
@@ -77,6 +84,7 @@ export class UserService {
         username: body.username,
         password: body.password,
         active: body.active,
+        salt:body.salt,
         created_at: db.fn.now(),
         created_by: 1,
       })

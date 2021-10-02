@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { KnexModule } from 'nest-knexjs';
 import { ProductModule } from './product/product.module';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 require("dotenv").config();
 
 @Module({
@@ -21,6 +22,7 @@ require("dotenv").config();
     }),
     ProductModule,
     UserModule,
+    AuthModule,
    ],
 })
 export class AppModule {}

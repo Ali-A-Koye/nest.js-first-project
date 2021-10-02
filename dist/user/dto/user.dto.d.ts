@@ -1,6 +1,7 @@
 export declare class PostorPutDTO {
     name: string;
     username: string;
+    salt: string;
     password: string;
     active: boolean;
 }

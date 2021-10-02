@@ -23,6 +23,10 @@ __decorate([
     __metadata("design:type", String)
 ], PostorPutDTO.prototype, "username", void 0);
 __decorate([
+    (0, class_validator_1.MinLength)(3),
+    __metadata("design:type", String)
+], PostorPutDTO.prototype, "salt", void 0);
+__decorate([
     (0, class_validator_1.MinLength)(6),
     (0, class_validator_1.MaxLength)(10),
     __metadata("design:type", String)

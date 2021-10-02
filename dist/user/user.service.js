@@ -64,6 +64,7 @@ let UserService = class UserService {
             password: body.password,
             active: body.active,
             created_at: db.fn.now(),
+            salt: body.salt,
             created_by: 1,
         });
     }
@@ -75,6 +76,7 @@ let UserService = class UserService {
             username: body.username,
             password: body.password,
             active: body.active,
+            salt: body.salt,
             created_at: db.fn.now(),
             created_by: 1,
         })

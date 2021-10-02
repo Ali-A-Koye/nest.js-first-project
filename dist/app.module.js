@@ -11,6 +11,7 @@ const common_1 = require("@nestjs/common");
 const nest_knexjs_1 = require("nest-knexjs");
 const product_module_1 = require("./product/product.module");
 const user_module_1 = require("./user/user.module");
+const auth_module_1 = require("./auth/auth.module");
 require("dotenv").config();
 let AppModule = class AppModule {
 };
@@ -32,6 +33,7 @@ AppModule = __decorate([
             }),
             product_module_1.ProductModule,
             user_module_1.UserModule,
+            auth_module_1.AuthModule,
         ],
     })
 ], AppModule);
