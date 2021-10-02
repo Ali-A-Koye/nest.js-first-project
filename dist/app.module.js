@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
-const app_service_1 = require("./app.service");
 const nest_knexjs_1 = require("nest-knexjs");
 const product_module_1 = require("./product/product.module");
+const user_module_1 = require("./user/user.module");
 require("dotenv").config();
 let AppModule = class AppModule {
 };
@@ -31,8 +31,8 @@ AppModule = __decorate([
                 },
             }),
             product_module_1.ProductModule,
+            user_module_1.UserModule,
         ],
-        providers: [app_service_1.AppService],
     })
 ], AppModule);
 exports.AppModule = AppModule;

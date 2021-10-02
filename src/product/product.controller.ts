@@ -22,7 +22,6 @@ export class ProductController {
   constructor(private readonly productService: ProductService) { }
 
   @Get('/grid')
-  @UsePipes(new ValidationPipe({ transform: true }))
   readDataGrid(@Query() query: DataGridDto): Promise<{
     data: Array<object>;
     pages: number;
@@ -47,8 +46,8 @@ export class ProductController {
   }
 
   @Get('/list')
-  @UsePipes(new ValidationPipe({ transform: true }))
   readlist(@Query() query: DataListDto): Promise<Array<object>> {
+   
     const readData = this.productService.readListQuery(
       query.limit,
       query.offset,
@@ -87,6 +86,8 @@ export class ProductController {
     @Param() param: ReadSingleDTO,
     @Body() body: ProductPatchDTO,
   ): Promise<number> {
+
+    
     const readData = this.productService.patch(param.id, body);
     return Promise.resolve(readData);
   }

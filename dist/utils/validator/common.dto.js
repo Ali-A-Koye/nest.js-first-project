@@ -98,6 +98,7 @@ __decorate([
     (0, class_transformer_1.Transform)(({ value }) => {
         if (!(0, class_validator_1.isInt)(+value) || +value < 0)
             throw new common_1.BadRequestException("id must be Postive Integer");
+        return value;
     }),
     __metadata("design:type", Number)
 ], ReadSingleDTO.prototype, "id", void 0);

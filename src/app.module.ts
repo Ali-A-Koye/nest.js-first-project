@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { AppService } from './app.service';
 import { KnexModule } from 'nest-knexjs';
 import { ProductModule } from './product/product.module';
+import { UserModule } from './user/user.module';
 require("dotenv").config();
 
 @Module({
@@ -20,7 +20,7 @@ require("dotenv").config();
       },
     }),
     ProductModule,
+    UserModule,
    ],
-  providers: [AppService],
 })
 export class AppModule {}

@@ -3,7 +3,7 @@ import { Knex } from 'knex';
 import { InjectConnection } from 'nest-knexjs';
 import { DataService } from 'src/utils/data/data.service';
 @Injectable()
-export class ProductService {
+export class UserService {
   constructor(
     @InjectConnection() private readonly knex: Knex,
     private readonly dataService: DataService,
@@ -18,20 +18,19 @@ export class ProductService {
     const db = this.knex;
     const filter = this.dataService.filter;
     const sorter = this.dataService.sorter;
-    const records = db('product')
-      .select('product.*', 'user.name as created_by_who')
-      .leftJoin('user', 'user.id', 'product.created_by')
-      .where('product.deleted', 0)
+    const records = db('user')
+      .select('user.*')
+      .where('user.deleted', 0)
       .offset(pageSize * page)
       .limit(pageSize);
 
     filter(filters, records);
-    if (sortArray.length === 0) records.orderBy('product.id', 'desc');
+    if (sortArray.length === 0) records.orderBy('user.id', 'desc');
     sorter(sortArray, records);
 
-    const recordsCount = db('product')
-      .count({ count: 'product.id' })
-      .where('product.deleted', 0);
+    const recordsCount = db('user')
+      .count({ count: 'user.id' })
+      .where('user.deleted', 0);
     filter(filters, recordsCount);
 
     return [records, recordsCount];
@@ -40,10 +39,9 @@ export class ProductService {
   readListQuery(limit: number, offset: number): Knex.QueryBuilder {
     const db = this.knex;
 
-    return db('product')
-      .select('product.*', 'user.name as created_by_who')
-      .leftJoin('user', 'user.id', 'product.created_by')
-      .where('product.deleted', 0)
+    return db('user')
+      .select('user.*')
+      .where('user.deleted', 0)
       .limit(limit)
       .offset(offset);
   }
@@ -51,20 +49,19 @@ export class ProductService {
   readSingleQuery(id: number): Knex.QueryBuilder {
     const db = this.knex;
 
-    return db('product')
-      .select('product.*', 'user.name as created_by_who')
-      .leftJoin('user', 'user.id', 'product.created_by')
-      .where('product.deleted', 0)
-      .andWhere('product.id', id);
+    return db('user')
+      .select('user.*')
+      .where('user.deleted', 0)
+      .andWhere('user.id', id);
   }
 
   create(body): Knex.QueryBuilder {
     const db = this.knex;
 
-    return db('product').insert({
+    return db('user').insert({
       name: body.name,
-      price: body.price,
-      is_sold: body.is_sold,
+      username: body.username,
+      password: body.password,
       active: body.active,
       created_at: db.fn.now(),
       created_by: 1,
@@ -74,11 +71,11 @@ export class ProductService {
   update(id, body): Knex.QueryBuilder {
     const db = this.knex;
 
-    return db('product')
+    return db('user')
       .update({
         name: body.name,
-        price: body.price,
-        is_sold: body.is_sold,
+        username: body.username,
+        password: body.password,
         active: body.active,
         created_at: db.fn.now(),
         created_by: 1,
@@ -91,11 +88,10 @@ export class ProductService {
     const updateOb:any = {};
 
 		if (body.deleted !== undefined) updateOb.deleted = body.deleted;
-    if (body.is_sold !== undefined) updateOb.is_sold = body.is_sold;
 		if (body.active !== undefined) updateOb.active = body.active;
 		if (Object.entries(body).length === 0) throw new UnprocessableEntityException();
 
-    return db('product')
+    return db('user')
       .update(updateOb)
       .where('id', id);
   }
