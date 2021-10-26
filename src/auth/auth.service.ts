@@ -3,7 +3,7 @@ import { Knex } from 'knex';
 import { InjectConnection } from 'nest-knexjs';
 import * as jwt from 'jsonwebtoken';
 import { UserService } from 'src/user/user.service';
-const sha1 = require('sha1');
+import sha1 from 'sha1';
 
 @Injectable()
 export class AuthService {
