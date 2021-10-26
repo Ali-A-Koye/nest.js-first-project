@@ -8,8 +8,8 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "db:migrate": "npx knex migrate:latest --knexfile ./database/knexfile.js",
-    "db:seed": "npx knex seed:run --knexfile ./database/knexfile.js",
+    "db:migrate": "npx knex migrate:latest --knexfile ./database/knexfile.js --esm",
+    "db:seed": "npx knex seed:run --knexfile ./database/knexfile.js --esm",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
