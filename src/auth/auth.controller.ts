@@ -12,13 +12,11 @@ export class AuthController {
   }
 
   @Post('/signup')
-  signup(@Body() body: SignupDTO) {
-    let data = this.authService.signup({
+  signup(@Body() body: SignupDTO) {\
+    return this.authService.signup({
       username: body.username,
       password: body.password,
       name: body.name,
     });
-
-    return data;
   }
 }

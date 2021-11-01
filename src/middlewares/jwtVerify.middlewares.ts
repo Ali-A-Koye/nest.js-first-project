@@ -1,11 +1,9 @@
 import {
   Injectable,
-  InternalServerErrorException,
   NestMiddleware,
-  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 
 import { UserService } from 'src/user/user.service';
 import * as jwt from 'jsonwebtoken';
@@ -13,21 +11,21 @@ import * as jwt from 'jsonwebtoken';
 @Injectable()
 export class JwtVerifyMiddleware implements NestMiddleware {
   constructor(private readonly userService: UserService) {}
-  async use(req: Request, res: Response, next: NextFunction) {
+  async use(req: any, res: Response, next: NextFunction) {
     try {
       const { authorization } = req.headers;
-
       if (!authorization)
-        next(new UnauthorizedException('Invalid Token Provided!'));
-      const parts = authorization.split(' ');
-      if (parts[1]) {
+        return next(new UnauthorizedException('Invalid Token Provided!')); // It's necessary to return here. Otherwise, code excution will continue and will throw an error.
+
+      const token = authorization.replace('Bearer ', ''); // No need to split. Just erase the Bearer word plus the space.
+
+      if (token) {
         try {
-          const decoded = jwt.verify(parts[1], process.env.JWT_SECRET);
-          // @ts-ignore
+          const decoded = jwt.verify(token, process.env.JWT_SECRET);
           req.user = decoded;
-          next();
+          return next();
         } catch (err) {
-          next(
+          return next(
             new UnauthorizedException("You don't have access to this Route!"),
           );
         }
@@ -35,7 +33,7 @@ export class JwtVerifyMiddleware implements NestMiddleware {
         next(new UnauthorizedException('invalid token provided!'));
       }
     } catch (err) {
-      next(new InternalServerErrorException());
+      next(err); // Just throw the exception that you instantiated above instead of Internal Server Error.
     }
   }
 }
